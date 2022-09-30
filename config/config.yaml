@@ -1,0 +1,22 @@
+run_mode: "debug"
+server:
+  http_port: 8060
+  read_timeout: 60
+  write_timeout: 60
+app:
+  page_size: 10
+  jwt_secret: "23347$040412"
+data_base:
+  type: "mysql"
+  user: "root"
+  password: "00B11570D584F5A@!"
+  host: "192.168.113.29:3306"
+  name: "demo"
+  table_prefix: "blog_"
+log_config:
+  level: "info"
+  filename: "logs/viper_gin.log"
+  max_size: 1
+  max_age: 30
+  max_backups: 5
+  version: "v1.1"
