@@ -1,4 +1,4 @@
-package v1
+package article
 
 import (
 	"log"
@@ -13,9 +13,9 @@ import (
 	"github.com/xppcnn/gin-demo/utils"
 )
 
-type ArticleRouter struct{}
+type ArticleApi struct{}
 
-func (articleApi *ArticleRouter) GetArticle(ctx *gin.Context) {
+func (articleApi *ArticleApi) GetArticle(ctx *gin.Context) {
 	id := ctx.Param("id")
 	valid := validation.Validation{}
 	valid.Required(id, "id").Message("ID不能为空")
@@ -40,7 +40,7 @@ func (articleApi *ArticleRouter) GetArticle(ctx *gin.Context) {
 		"data": data,
 	})
 }
-func (articleApi *ArticleRouter) GetArticles(ctx *gin.Context) {
+func (articleApi *ArticleApi) GetArticles(ctx *gin.Context) {
 	data := make(map[string]interface{})
 	maps := make(map[string]interface{})
 	valid := validation.Validation{}
@@ -75,7 +75,7 @@ func (articleApi *ArticleRouter) GetArticles(ctx *gin.Context) {
 
 }
 
-func (articleApi *ArticleRouter) AddArticle(ctx *gin.Context) {
+func (articleApi *ArticleApi) AddArticle(ctx *gin.Context) {
 	maps := make(map[string]interface{})
 	ctx.BindJSON(&maps)
 	log.Printf("maps:%v,", maps)
@@ -110,7 +110,7 @@ func (articleApi *ArticleRouter) AddArticle(ctx *gin.Context) {
 		"data": make(map[string]interface{}),
 	})
 }
-func (articleApi *ArticleRouter) EditArticle(ctx *gin.Context) {
+func (articleApi *ArticleApi) EditArticle(ctx *gin.Context) {
 	maps := make(map[string]interface{})
 	ctx.BindJSON(&maps)
 	id := ctx.Param("id")
@@ -150,7 +150,7 @@ func (articleApi *ArticleRouter) EditArticle(ctx *gin.Context) {
 		"data": make(map[string]string),
 	})
 }
-func (articleApi *ArticleRouter) DeleteArticle(ctx *gin.Context) {
+func (articleApi *ArticleApi) DeleteArticle(ctx *gin.Context) {
 	id := ctx.Param("id")
 	valid := validation.Validation{}
 	valid.Required(id, "id").Message("ID不得为空")

@@ -1,14 +1,14 @@
-module gin-demo
+module github.com/xppcnn/gin-demo
 
 go 1.19
 
-require (
-	github.com/xppcnn/gin-demo/config v0.0.1
-	github.com/xppcnn/gin-demo/middleware v0.0.1
-	github.com/xppcnn/gin-demo/pkg/logging v0.0.1
-	github.com/xppcnn/gin-demo/pkg/setting v0.0.1
-	github.com/xppcnn/gin-demo/routers v0.0.1
-)
+// require (
+// 	github.com/xppcnn/gin-demo/config v0.0.1
+// 	github.com/xppcnn/gin-demo/middleware v0.0.1
+// 	github.com/xppcnn/gin-demo/pkg/logging v0.0.1
+// 	github.com/xppcnn/gin-demo/pkg/setting v0.0.1
+// 	github.com/xppcnn/gin-demo/routers v0.0.1
+// )
 
 require (
 	github.com/astaxie/beego v1.12.3 // indirect
@@ -47,9 +47,9 @@ require (
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/unknwon/com v1.0.1 // indirect
-	github.com/xppcnn/gin-demo/models v0.0.1 // indirect
-	github.com/xppcnn/gin-demo/pkg/e v0.0.1 // indirect
-	github.com/xppcnn/gin-demo/utils v0.0.1 // indirect
+	// github.com/xppcnn/gin-demo/models v0.0.1 // indirect
+	// github.com/xppcnn/gin-demo/pkg/e v0.0.1 // indirect
+	// github.com/xppcnn/gin-demo/utils v0.0.1 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
@@ -63,14 +63,14 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace (
-	github.com/xppcnn/gin-demo/config => ./config
-	github.com/xppcnn/gin-demo/middleware => ./middleware
-	github.com/xppcnn/gin-demo/models => ./models
-	github.com/xppcnn/gin-demo/pkg/e => ./pkg/e
-	github.com/xppcnn/gin-demo/pkg/logging => ./pkg/logging
-	github.com/xppcnn/gin-demo/pkg/setting => ./pkg/setting
-	github.com/xppcnn/gin-demo/routers => ./routers
-	github.com/xppcnn/gin-demo/runtime => ./runtime
-	github.com/xppcnn/gin-demo/utils => ./utils
-)
+// replace (
+// 	github.com/xppcnn/gin-demo/config => ./config
+// 	github.com/xppcnn/gin-demo/middleware => ./middleware
+// 	github.com/xppcnn/gin-demo/models => ./models
+// 	github.com/xppcnn/gin-demo/pkg/e => ./pkg/e
+// 	github.com/xppcnn/gin-demo/pkg/logging => ./pkg/logging
+// 	github.com/xppcnn/gin-demo/pkg/setting => ./pkg/setting
+// 	github.com/xppcnn/gin-demo/routers => ./routers
+// 	github.com/xppcnn/gin-demo/runtime => ./runtime
+// 	github.com/xppcnn/gin-demo/utils => ./utils
+// )

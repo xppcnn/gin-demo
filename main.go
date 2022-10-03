@@ -10,8 +10,10 @@ import (
 	"time"
 
 	"github.com/fvbock/endless"
+	"github.com/xppcnn/gin-demo/config"
+	"github.com/xppcnn/gin-demo/initialize"
+	"github.com/xppcnn/gin-demo/middleware"
 	"github.com/xppcnn/gin-demo/pkg/setting"
-	"github.com/xppcnn/gin-demo/routers"
 	"go.uber.org/zap"
 )
 
@@ -31,7 +33,11 @@ func main() {
 	endless.DefaultWriteTimeOut = setting.WriteTimeout
 	endless.DefaultMaxHeaderBytes = 1 << 20
 	endPoint := fmt.Sprintf(":%d", setting.HTTPPort)
-	router := routers.InitRouter()
+	conf := config.GetConfig()
+	if err := middleware.InitLogger(conf.LogConfig, conf.RunMode); err != nil {
+		fmt.Println(err)
+	}
+	router := initialize.InitRouter()
 	s := endless.NewServer(endPoint, router)
 	s.BeforeBegin = func(add string) {
 		zap.L().Info("init", zap.Int("actual pid is %d", syscall.Getpid()))

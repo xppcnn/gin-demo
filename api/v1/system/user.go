@@ -1,4 +1,4 @@
-package v1
+package system
 
 import (
 	"github.com/astaxie/beego/validation"
@@ -8,7 +8,9 @@ import (
 	"go.uber.org/zap"
 )
 
-func Register(ctx *gin.Context) {
+type UserApi struct{}
+
+func (u *UserApi) Register(ctx *gin.Context) {
 	var vo = new(models.User)
 	ctx.BindJSON(vo)
 	valid := validation.Validation{}

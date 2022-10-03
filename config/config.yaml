@@ -15,7 +15,7 @@ data_base:
   table_prefix: "blog_"
 log_config:
   level: "info"
-  filename: "logs/viper_gin.log"
+  filename: "log/viper_gin.log"
   max_size: 1
   max_age: 30
   max_backups: 5

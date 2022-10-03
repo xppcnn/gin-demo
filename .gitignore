@@ -1,6 +1,4 @@
 .idea/
-/web/node_modules
-/web/dist
 
 .DS_Store
 
@@ -22,10 +20,8 @@ yarn-error.log*
 *.sln
 *.sw?
 
-/server/log/
-/server/gva
-/server/latest_log
-
 *.iml
 web/.pnpm-debug.log
 web/pnpm-lock.yaml
+
+/log
