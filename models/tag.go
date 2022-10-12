@@ -10,9 +10,6 @@ import (
 
 type Tag struct {
 	Model
-	// ID         string `gorm:"primary_key" json:"id" binding:"uuid"`
-	// CreatedOn  int    `json:"created_on"`
-	// ModifiedOn int    `json:"modified_on"`
 	Name       string `json:"name"`
 	CreatedBy  string `json:"created_by"`
 	ModifiedBy string `json:"modified_by"`

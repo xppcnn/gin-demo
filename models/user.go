@@ -1,11 +1,7 @@
 package models
 
 import (
-	"errors"
-
 	"github.com/google/uuid"
-	"github.com/jinzhu/gorm"
-	"github.com/xppcnn/gin-demo/utils"
 )
 
 type User struct {
@@ -17,25 +13,4 @@ type User struct {
 type PublicUser struct {
 	*User              // 匿名嵌套
 	Password *struct{} `json:"pass_word,omitempty"`
-}
-
-func Register(u User) (userInfo PublicUser, err error) {
-	var vo User
-	if !errors.Is(db.Where("user_name = ?", u.UserName).First(&vo).Error, gorm.ErrRecordNotFound) {
-		return userInfo, errors.New("用户已注册")
-	}
-	u.PassWord = utils.BcryptHash(u.PassWord)
-	u.ID = uuid.New()
-	err = db.Create(u).Error
-	pu := PublicUser{User: &u}
-	return pu, err
-}
-
-func FindUserById(id string) (user *PublicUser, err error) {
-	var u User
-	if err = db.Where("`id` = ?", id).First(&u).Error; err != nil {
-		return nil, errors.New("用户不存在")
-	}
-	user = &PublicUser{User: &u}
-	return user, nil
 }

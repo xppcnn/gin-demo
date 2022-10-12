@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/xppcnn/gin-demo/models"
 	"github.com/xppcnn/gin-demo/pkg/e"
+	"github.com/xppcnn/gin-demo/service"
 	"github.com/xppcnn/gin-demo/utils"
 )
 
@@ -16,6 +16,8 @@ func JWT() gin.HandlerFunc {
 		var code int
 		var token string
 		var data interface{}
+		var userService = service.ServiceGroupVo.SystemServiceGroup.UserService
+
 		code = e.SUCCESS
 		bearerToken := ctx.GetHeader("Authorization")
 
@@ -30,12 +32,14 @@ func JWT() gin.HandlerFunc {
 			claims, err := utils.ParseToken(token)
 			if err != nil {
 				code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
-			} else if time.Now().Unix() > claims.ExpiresAt {
-				code = e.ERROR_AUTH_CHECK_TOKEN_TIMEOUT
-			}
-			//查询用户是否存在
-			if _, err := models.FindUserById(claims.ID); err != nil {
-				code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
+			} else {
+				if time.Now().Unix() > claims.ExpiresAt {
+					code = e.ERROR_AUTH_CHECK_TOKEN_TIMEOUT
+				}
+				//查询用户是否存在
+				if _, err := userService.FindUserById(claims.ID); err != nil {
+					code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
+				}
 			}
 		}
 		if code != e.SUCCESS {

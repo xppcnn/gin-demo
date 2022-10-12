@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/astaxie/beego/validation"
-	"github.com/xppcnn/gin-demo/models"
 	"github.com/xppcnn/gin-demo/utils"
 
 	"github.com/gin-gonic/gin"
@@ -13,8 +12,10 @@ import (
 	"github.com/xppcnn/gin-demo/pkg/setting"
 )
 
+type TagApi struct{}
+
 // 获取文章多个tag
-func GetTags(ctx *gin.Context) {
+func (t *TagApi) GetTags(ctx *gin.Context) {
 	name := ctx.Query("name")
 	maps := make(map[string]interface{})
 	data := make(map[string]interface{})
@@ -29,12 +30,12 @@ func GetTags(ctx *gin.Context) {
 
 	code := e.SUCCESS
 
-	data["list"] = models.GetTags(utils.GetPage(ctx), setting.PageSize, maps)
-	data["total"] = models.GetTagTotal(maps)
+	data["list"] = tagService.GetTags(utils.GetPage(ctx), setting.PageSize, maps)
+	data["total"] = tagService.GetTagTotal(maps)
 	ctx.JSON(http.StatusOK, gin.H{"code": code, "msg": e.GetMsg(code), "data": data})
 }
 
-func AddTag(ctx *gin.Context) {
+func (t *TagApi) AddTag(ctx *gin.Context) {
 	maps := make(map[string]string)
 	ctx.BindJSON(&maps)
 	name := maps["name"]
@@ -49,9 +50,9 @@ func AddTag(ctx *gin.Context) {
 
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
-		if !models.ExistTagByName(name) {
+		if !tagService.ExistTagByName(name) {
 			code = e.SUCCESS
-			models.AddTag(name, state, createdBy)
+			tagService.AddTag(name, state, createdBy)
 		} else {
 			code = e.ERROR_EXIST_TAG
 		}
@@ -63,7 +64,7 @@ func AddTag(ctx *gin.Context) {
 	})
 }
 
-func EditTag(ctx *gin.Context) {
+func (t *TagApi) EditTag(ctx *gin.Context) {
 	maps := make(map[string]string)
 	ctx.BindJSON(&maps)
 
@@ -81,7 +82,7 @@ func EditTag(ctx *gin.Context) {
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
 		code = e.SUCCESS
-		if models.ExistTagByID(id) {
+		if tagService.ExistTagByID(id) {
 			data := make(map[string]interface{})
 			data["modified_by"] = modifiedBy
 			if name != "" {
@@ -90,7 +91,7 @@ func EditTag(ctx *gin.Context) {
 			if state != -1 {
 				data["state"] = state
 			}
-			models.EditTag(id, data)
+			tagService.EditTag(id, data)
 		} else {
 			code = e.ERROR_NOT_EXIST_TAG
 		}
@@ -98,15 +99,15 @@ func EditTag(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"code": code, "data": make(map[string]string), "msg": e.GetMsg(code)})
 }
 
-func DeleteTag(ctx *gin.Context) {
+func (t *TagApi) DeleteTag(ctx *gin.Context) {
 	id := ctx.Param("id")
 	valid := validation.Validation{}
 	valid.Required(id, "id").Message("ID不能为空")
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
 		code = e.SUCCESS
-		if models.ExistTagByID(id) {
-			models.DeleteTag(id)
+		if tagService.ExistTagByID(id) {
+			tagService.DeleteTag(id)
 		} else {
 			code = e.ERROR_NOT_EXIST_TAG
 		}

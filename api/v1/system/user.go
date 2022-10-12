@@ -22,7 +22,7 @@ func (u *UserApi) Register(ctx *gin.Context) {
 			return
 		}
 	}
-	user, err := models.Register(*vo)
+	user, err := userService.Register(*vo)
 	if err != nil {
 		zap.L().Error("注册失败", zap.Error(err))
 		e.FailWithDetailed(user, err.Error(), ctx)
